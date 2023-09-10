@@ -23,10 +23,7 @@ def normalize(df_2):
 # Daily Returns
 def daily_return(df):
     df_daily_return = df.copy()
-    for i in df.columns[1:]:
-        for j in range(1,len(df)):
-            df_daily_return[i][j] = ((df[i][j]-df[i][j-1])/df[i][j-1])*100
-        df_daily_return[i][0] = 0
+    df_daily_return[df.columns[1:]] = (df[df.columns[1:]].pct_change() * 100).fillna(0)
     return df_daily_return
 
 # function to calculate beta
